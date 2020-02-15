@@ -1,6 +1,7 @@
 #include <wx/filename.h>
 #include <wx/colour.h>
 #include <wx/image.h>
+#include <memory>
 #include <string>
 #include "chatbot.h"
 #include "chatlogic.h"
@@ -104,41 +105,40 @@ BEGIN_EVENT_TABLE(ChatBotPanelDialog, wxPanel)
 EVT_PAINT(ChatBotPanelDialog::paintEvent) // catch paint events
 END_EVENT_TABLE()
 
-ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
-    : wxScrolledWindow(parent, id)
-{
-    // sizer will take care of determining the needed scroll size
-    _dialogSizer = new wxBoxSizer(wxVERTICAL);
-    this->SetSizer(_dialogSizer);
+ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id) : wxScrolledWindow(parent, id) {
+  // sizer will take care of determining the needed scroll size
+  _dialogSizer = new wxBoxSizer(wxVERTICAL);
+  this->SetSizer(_dialogSizer);
 
-    // allow for PNG images to be handled
-    wxInitAllImageHandlers();
+  // allow for PNG images to be handled
+  wxInitAllImageHandlers();
 
-    //// STUDENT CODE
-    ////
+  //// STUDENT CODE
+  ////
 
-    // create chat logic instance
-    _chatLogic = new ChatLogic(); 
+  // create chat logic instance
+  // Change to make it an exclusive resources
+  // _chatLogic = new ChatLogic();
+  _chatLogic = std::make_unique<ChatLogic>();
 
-    // pass pointer to chatbot dialog so answers can be displayed in GUI
-    _chatLogic->SetPanelDialogHandle(this);
+  // pass pointer to chatbot dialog so answers can be displayed in GUI
+  _chatLogic->SetPanelDialogHandle(this);
 
-    // load answer graph from file
-    _chatLogic->LoadAnswerGraphFromFile(dataPath + "src/answergraph.txt");
+  // load answer graph from file
+  _chatLogic->LoadAnswerGraphFromFile(dataPath + "src/answergraph.txt");
 
-    ////
-    //// EOF STUDENT CODE
+  ////
+  //// EOF STUDENT CODE
 }
 
-ChatBotPanelDialog::~ChatBotPanelDialog()
-{
-    //// STUDENT CODE
-    ////
+ChatBotPanelDialog::~ChatBotPanelDialog() {
+  //// STUDENT CODE
+  ////
+  // Commented this line below because it's now an exclusive resource.
+  // delete _chatLogic;
 
-    delete _chatLogic;
-
-    ////
-    //// EOF STUDENT CODE
+  ////
+  //// EOF STUDENT CODE
 }
 
 void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)
