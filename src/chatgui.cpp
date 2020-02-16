@@ -112,10 +112,8 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id) : wxScro
 
   // allow for PNG images to be handled
   wxInitAllImageHandlers();
-
   //// STUDENT CODE
   ////
-
   // create chat logic instance
   // Change to make it an exclusive resources
   // _chatLogic = new ChatLogic();
@@ -126,7 +124,6 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id) : wxScro
 
   // load answer graph from file
   _chatLogic->LoadAnswerGraphFromFile(dataPath + "src/answergraph.txt");
-
   ////
   //// EOF STUDENT CODE
 }
