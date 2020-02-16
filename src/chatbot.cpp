@@ -39,29 +39,31 @@ ChatBot::~ChatBot() {
 
 //// STUDENT CODE
 ////
-ChatBot::ChatBot(const ChatBot &source) {
+ChatBot::ChatBot(const ChatBot &source) {  // Copy constructor
   *_image = *source._image; 
   std::cout << "ChatBot Copy Constructor" << std::endl;
 }
 
-ChatBot::ChatBot(ChatBot &&source) {
+ChatBot::ChatBot(ChatBot &&source) { // move constructor
   std::cout << "ChatBot Move Constructor" << std::endl;
   _image = source._image;
   source._image = nullptr;
 }
 
-ChatBot &ChatBot::operator=(const ChatBot &source) {
+ChatBot &ChatBot::operator=(const ChatBot &source) { // Copy assignment operator
   std::cout << "ChatBot Copy Assignment Operator" << std::endl;
   if (this == &source)
     return *this;
+  delete _image;
   *_image = *source._image;
   return *this;
 }
 
-ChatBot &ChatBot::operator=(ChatBot &&source) {
+ChatBot &ChatBot::operator=(ChatBot &&source) { // move assignment operator
   std::cout << "ChatBot Move Assignment Operator" << std::endl;
   if (this == &source)
     return *this;
+  delete _image;
   _image = source._image;
   source._image = nullptr;
   return *this;
