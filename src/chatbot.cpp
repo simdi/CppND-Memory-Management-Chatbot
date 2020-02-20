@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <algorithm>
+#include <memory>
 #include <ctime>
 
 #include "chatlogic.h"
